@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Michael Tomer's Blog</title>
+  <link href="http://actsasbuffoon.com/atom.xml" rel="self"/>
+  <link href="http://actsasbuffoon.com/"/>
+  <updated>2011-08-27T00:39:08-04:00</updated>
+  <id>http://actsasbuffoon.com/</id>
+  <author>
+    <name>Michael Tomer (actsasbuffoon)</name>
+    
+      <email>michaeltomer@gmail.com</email>
+    
+  </author>
+
+  
+  <entry>
+    <title>Rocket.io Docs Online</title>
+    <link href="http://actsasbuffoon.com/blog/2011/08/27/rocket-dot-io-docs-online/"/>
+    <updated>2011-08-27T00:02:00-04:00</updated>
+    <id>http://actsasbuffoon.com/blog/2011/08/27/rocket-dot-io-docs-online</id>
+    <content type="html">&lt;p&gt;The documentation for Rocket.io is live, though there's still some work to be done. Hopefully it's enough to get you started.&lt;/p&gt;
+
+&lt;p&gt;I've got annotated Ruby source and JS source thanks to Docco.&lt;/p&gt;
+
+&lt;p&gt;Check it out at: &lt;a href=&quot;http://actsasbuffoon.com/rocket-io&quot;&gt;http://actsasbuffoon.com/rocket-io&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Rocket.io Screencast</title>
+    <link href="http://actsasbuffoon.com/blog/2011/08/25/rocket-dot-io-screencast/"/>
+    <updated>2011-08-25T17:49:00-04:00</updated>
+    <id>http://actsasbuffoon.com/blog/2011/08/25/rocket-dot-io-screencast</id>
+    <content type="html">&lt;p&gt;I've just finished a screencast for Rocket.io and made it available on Vimeo. Let me know what you think.&lt;/p&gt;
+
+&lt;iframe src=&quot;http://player.vimeo.com/video/28167729?portrait=0&quot; width=&quot;800&quot; height=&quot;450&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
+
+&lt;p&gt;&lt;a href=&quot;http://vimeo.com/28167729&quot;&gt;Rocket.io&lt;/a&gt; from &lt;a href=&quot;http://vimeo.com/user8256555&quot;&gt;Michael Tomer&lt;/a&gt; on &lt;a href=&quot;http://vimeo.com&quot;&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+
+
+&lt;p&gt;Rocket.io is a realtime web application framework built with Ruby. This is the presentation I gave at RailsCamp New England 2011 when the project was officially released to the public. Read more on my blog at http://actsasbuffoon.com or on my Github account at http://github.com/actsasbuffoon/rocket-io&lt;/p&gt;
+
+
+&lt;p&gt;I must confess, putting together a screencast is far more difficult than I'd imagined. The video quality isn't quite what I'd hoped, but it gets the point across.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>RailsCamp New England 2011</title>
+    <link href="http://actsasbuffoon.com/blog/2011/08/23/railscamp-new-england-2011/"/>
+    <updated>2011-08-23T20:28:00-04:00</updated>
+    <id>http://actsasbuffoon.com/blog/2011/08/23/railscamp-new-england-2011</id>
+    <content type="html">&lt;p&gt;I got back from RailsCamp New England 2011 on Monday morning, and I had an awesome time. &lt;a href=&quot;http://twitter.com/#!/bcardarella&quot;&gt;Brian Cardarella&lt;/a&gt; did a great job organizing the event, and the house was gorgeous.&lt;/p&gt;
+
+&lt;p&gt;We had people from ThoughtBot, Intridea, RailsMachine, and more. A great time was had by all, and a great deal of alcohol was had by most. Due to the smaller, more intimate nature of the meeting, I feel like I learned a lot more than I normally do at confs.&lt;/p&gt;
+
+&lt;p&gt;I'd like to see RailsCamp get bigger, but I think that would ruin the atmosphere. Maybe we just need them more often. I'd happily attend RailsCamp a few times a year.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Understanding Server Push: Part 1</title>
+    <link href="http://actsasbuffoon.com/blog/2011/08/23/understanding-server-push/"/>
+    <updated>2011-08-23T01:29:00-04:00</updated>
+    <id>http://actsasbuffoon.com/blog/2011/08/23/understanding-server-push</id>
+    <content type="html">&lt;p&gt;I've done a fair amount of work with different forms of server push over the years, and I find that a lot of developers are curious about the topic. As such, I'd like to create a series of posts on the different ways one can send data to the client without the client initiating a request.&lt;/p&gt;
+
+&lt;h2&gt;The Anatomy of a Web Request&lt;/h2&gt;
+
+&lt;p&gt;Before we get into how push works, let's quickly go over the way HTTP normally works.&lt;/p&gt;
+
+&lt;p&gt;The internet is built on TCP/IP (Transmission Control Protocol and Internet Protocol, respectively). TCP is a method of transferring data from one endpoint to another in a reliable fashion. Those endpoints can be different applications running on separate computers, though they can also be used to &quot;loopback&quot; to the same computer, and even the same application. Error detection and correction are built in at a low level. Unlike UDP, TCP ensures that each packet gets through in the intended order before allowing the next packet to be sent. That adds a bit of overhead, but alleviates a lot of headaches for most applications.&lt;/p&gt;
+
+&lt;p&gt;Internet Protocol on the other hand, is how the computer routes the data to its intended recipient. We're all familiar with IP addresses, which are indeed a part of the Internet Protocol.&lt;/p&gt;
+
+&lt;p&gt;Many applications use raw TCP sockets to communicate. For instance, when you connect an application server to a database server, they may very well be communicating over a raw TCP socket.&lt;/p&gt;
+
+&lt;p&gt;HTTP (Hypertext Transfer Protocol) is a request/response protocol that runs on top of TCP/IP. Simply put, a client makes a request to a server (consisting of a request line, headers, and possibly a body). The server handles the request in whatever way is deemed appropriate and sends a response consisting of headers and possibly a body.&lt;/p&gt;
+
+&lt;p&gt;Here's a slightly more in depth look at what happens when a user types a URL in their browser and hits enter:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The client turns that URL into an IP address. If the address is cached then that is used, if not, it requests the information from a domain name server.&lt;/li&gt;
+&lt;li&gt;The client initiates a TCP connection with the server.&lt;/li&gt;
+&lt;li&gt;The client sends the request data, including a request line (i.e, GET /index.html HTTP/1.1), headers, and perhaps a body.&lt;/li&gt;
+&lt;li&gt;The server processes the request.&lt;/li&gt;
+&lt;li&gt;The server sends the response data, including headers, and possibly a body.&lt;/li&gt;
+&lt;li&gt;The TCP connection is ended.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;This happens for every single piece of data that needs to be requested. You'll make one request for the HTML page, another for the CSS, a few for however many Javascript files are included, and one for every single image, etc. You could easily make several dozen requests for a single page, each of which goes through the entire list of steps given above.&lt;/p&gt;
+
+&lt;p&gt;When you think about it, it makes perfect sense that a server can't normally push data to a client without a request; after responding to a client, the TCP connection is terminated and the server doesn't even know if the client is still available.&lt;/p&gt;
+
+&lt;p&gt;Despite that, there are many means for getting realtime or semi-realtime data to users. Many years ago polling was the only option, followed by Java, Flash, ActiveX and other browser plugins. Eventually Web Sockets and Event Source were created, which allow for realtime data push without plugins. That said, all of the aforementioned techniques are quite different. I'll cover some of those options in later posts including example applications.&lt;/p&gt;
+
+&lt;p&gt;So in summary:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;IP is how computers locate and route data to one another on the internet.&lt;/li&gt;
+&lt;li&gt;TCP is how the individual packets of data are transferred in an orderly and fault resistant fashion.&lt;/li&gt;
+&lt;li&gt;HTTP is how clients and servers speak to one another. It involves an unbreakable request response cycle.&lt;/li&gt;
+&lt;li&gt;Polling, plugins, Web Sockets, and Event Source allow us to send realtime (or mostly realtime) data to clients, but each has a unique set of pros and cons.&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Another Blog</title>
+    <link href="http://actsasbuffoon.com/blog/2011/08/22/another-blog/"/>
+    <updated>2011-08-22T23:24:00-04:00</updated>
+    <id>http://actsasbuffoon.com/blog/2011/08/22/another-blog</id>
+    <content type="html">&lt;p&gt;I'm moving my blog over to Github with Octopress. Bear with me while the DNS changes propigate and I import my old content.&lt;/p&gt;
+
+&lt;p&gt;I intend to create some posts about my new framework, tentatively named Rocket. It's a realtime web application framework made with Ruby. I'm also going to create some posts about Web Sockets, polling, Event Source, Web Socket fallbacks, and probably Faye as well. I'd also like to talk about EventMachine a bit, as I've found that a lot of developers like to pick my brain on these topics.&lt;/p&gt;
+
+&lt;p&gt;Sometimes I'll likely post screencasts on these topics. Watch this space.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Interesting Animation With Raphael.js</title>
+    <link href="http://actsasbuffoon.com/blog/2011/02/05/interesting-animation-with-raphael-dot-js/"/>
+    <updated>2011-02-05T16:36:00-05:00</updated>
+    <id>http://actsasbuffoon.com/blog/2011/02/05/interesting-animation-with-raphael-dot-js</id>
+    <content type="html">&lt;p&gt;I recently created an interesting animation with Raphael.js. This looks better on the original page, but here’s a preview:&lt;/p&gt;
+&lt;iframe height='320px' src='https://s3.amazonaws.com/actsasbuffoon/raphael_test.html' width='960px'&gt;&lt;/iframe&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Typekit in Situ</title>
+    <link href="http://actsasbuffoon.com/blog/2010/08/28/typekit-in-situ/"/>
+    <updated>2010-08-28T22:39:00-04:00</updated>
+    <id>http://actsasbuffoon.com/blog/2010/08/28/typekit-in-situ</id>
+    <content type="html">&lt;p&gt;I’ve just released Typekit In Situ, which aims to help you see more realistic Typekit font previews. Check it out on &lt;a href=&quot;&quot; title=&quot;https://github.com/actsasbuffoon/Typekit-In-Situ&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Fancy CSS Submit Buttons</title>
+    <link href="http://actsasbuffoon.com/blog/2010/08/26/fancy-css-submit-buttons/"/>
+    <updated>2010-08-26T15:18:00-04:00</updated>
+    <id>http://actsasbuffoon.com/blog/2010/08/26/fancy-css-submit-buttons</id>
+    <content type="html">&lt;p&gt;On the project I mentioned yesterday, I created some really nice CSS “buttons”. The buttons were actually just links with some nice styling, but they’d become a distinctive feature of the UI. Unfortunately, your only options for submit buttons are a regular button or an image, which wouldn’t mesh well with the rest of my UI. You can submit a form via Javascript, but I’m not sure if you can send a commit message that way, and I happened to need the message.&lt;/p&gt;
+
+&lt;p&gt;The buttons look like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class='' src='http://actsasbuffoon.com/images/pretty_button.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s just a link with a CSS3 gradient, border, and CSS3 drop shadow. Inside is an img tag, and some text.&lt;/p&gt;
+
+&lt;p&gt;Fortunately, I was able to come up with an unobtrusive JS solution that should degrade gracefully. The following code uses &lt;a href=&quot;http://jquery.com&quot;&gt;jQuery&lt;/a&gt; and &lt;a href=&quot;http://coffeescript.org&quot;&gt;Coffeescript&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Notice&lt;/h2&gt;
+
+&lt;p&gt;This isn’t intended to be a plugin or a piece of code you can use without modification, but with a little tweaking it could be handy.&lt;/p&gt;
+
+&lt;p&gt;``` coffeescript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$('input[type=submit]').each (i, eo) -&amp;gt;
+  elem = $(eo)
+  text = elem.attr 'value'
+  cls = elem.attr('class')
+  if /icon_(.+)/i.test(cls)
+    icon = cls.replace(/^icon_/, '')
+    elem.after &quot;&amp;lt;a href='javascript:void(0)' class='button'&amp;gt;&amp;lt;img alt='icon' class='icon' src='http://actsasbuffoon.com/images/icons/#{icon}.png' /&amp;gt;#{text}&amp;lt;/a&amp;gt;&quot;          
+    btn = elem.next()
+    btn.click (b) -&amp;gt;
+      elem.click()
+    elem.hide()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;For example, say you have the following submit element:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class='' src='http://actsasbuffoon.com/images/checkout_button.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;The script iterates over all submit buttons, and checks to see if they have a class starting with ‘icon_’. If true, the script hides the submit button (but doesn’t delete it), and inserts a link after it. The script reads the class name (discarding the ‘icon_’ part) and uses that to attach an icon from my /public/images/icons/ directory. The script also uses the value of the original submit button as the text to insert in the new “button”.&lt;/p&gt;
+
+&lt;p&gt;When the user clicks the link/button, it triggers a click() event on the original submit button. This means that you still get the commit message. Additionally, if your user doesn’t have JS, they should just get the original button.&lt;/p&gt;
+
+&lt;p&gt;For the heathens among you who aren’t using Coffeescript, here’s the same code in plain Javascript:&lt;/p&gt;
+
+&lt;p&gt;``` javascript&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$('input[type=submit]').each(function(i, eo) {
+  var btn, cls, elem, icon, text;
+  elem = $(eo);
+  text = elem.attr('value');
+  cls = elem.attr('class');
+  if (/icon_(.+)/i.test(cls)) {
+    icon = cls.replace(/^icon_/, '');
+    elem.after((&quot;&amp;lt;a href='javascript:void(0)' class='button'&amp;gt;&amp;lt;img alt='icon' class='icon' src='http://actsasbuffoon.com/images/icons/&quot; + (icon) + &quot;.png' /&amp;gt;&quot; + (text) + &quot;&amp;lt;/a&amp;gt;&quot;));
+    btn = elem.next();
+    btn.click(function(b) {
+    return elem.click();
+  });
+  return elem.hide();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Finishing a New Site</title>
+    <link href="http://actsasbuffoon.com/blog/2010/08/25/finishing-a-new-site/"/>
+    <updated>2010-08-25T19:01:00-04:00</updated>
+    <id>http://actsasbuffoon.com/blog/2010/08/25/finishing-a-new-site</id>
+    <content type="html">&lt;p&gt;I’m finishing up a new site. The design is probably my best graphical work yet. I’ll post a link once I’ve finished.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Sharding With MongoDB 1.6.0</title>
+    <link href="http://actsasbuffoon.com/blog/2010/08/17/sharding-with-mongodb-1-dot-6-0/"/>
+    <updated>2010-08-17T23:33:00-04:00</updated>
+    <id>http://actsasbuffoon.com/blog/2010/08/17/sharding-with-mongodb-1-dot-6-0</id>
+    <content type="html">&lt;p&gt;I created a screencast demonstrating how to set up sharding with MongoDB 1.6.0. Check it out, and be sure to leave a comment if you found it useful.&lt;/p&gt;
+&lt;iframe class='youtube-player' frameborder='0' height='405' src='http://www.youtube.com/embed/l3ib5eEEOqk?hl=en_US' type='text/html' width='660'&gt;&lt;/iframe&gt;
+&lt;p&gt;
+  The script I used to fill the database with random data can be found here:
+  &lt;a href='http://gist.github.com/532669'&gt;http://gist.github.com/532669&lt;/a&gt;
+&lt;/p&gt;
+&lt;script src='http://gist.github.com/532669.js'&gt;&lt;/script&gt;
+</content>
+  </entry>
+  
+</feed>

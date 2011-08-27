@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Michael Tomer's Blog</title>
+  <title>Michael Tomer's Blog: Fancy CSS Submit Buttons</title>
   <meta name="author" content="Michael Tomer (actsasbuffoon)">
   
 
@@ -16,7 +16,7 @@
 
   
 
-  <link rel="canonical" href="http://actsasbuffoon.com/index.html"/>
+  <link rel="canonical" href="http://actsasbuffoon.com/blog/2010/08/26/fancy-css-submit-buttons/"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -82,282 +82,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
-
-
-
-  <article>
-    
+      <div>
+<article class="hentry">
+  
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/08/27/rocket-dot-io-docs-online/">Rocket.io Docs Online</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2011-08-27 00:02:00 -0400" pubdate  updated >Aug 27<span>th</span>, 2011</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The documentation for Rocket.io is live, though there&#8217;s still some work to be done. Hopefully it&#8217;s enough to get you started.</p>
-
-<p>I&#8217;ve got annotated Ruby source and JS source thanks to Docco.</p>
-
-<p>Check it out at: <a href="http://actsasbuffoon.com/rocket-io">http://actsasbuffoon.com/rocket-io</a></p>
-</div>
-  
-  
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/25/rocket-dot-io-screencast/">Rocket.io Screencast</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2011-08-25 17:49:00 -0400" pubdate  updated >Aug 25<span>th</span>, 2011</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve just finished a screencast for Rocket.io and made it available on Vimeo. Let me know what you think.</p>
-
-<iframe src="http://player.vimeo.com/video/28167729?portrait=0" width="800" height="450" frameborder="0"></iframe>
-
-
-<p><a href="http://vimeo.com/28167729">Rocket.io</a> from <a href="http://vimeo.com/user8256555">Michael Tomer</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
-
-
-<p>Rocket.io is a realtime web application framework built with Ruby. This is the presentation I gave at RailsCamp New England 2011 when the project was officially released to the public. Read more on my blog at http://actsasbuffoon.com or on my Github account at http://github.com/actsasbuffoon/rocket-io</p>
-
-
-<p>I must confess, putting together a screencast is far more difficult than I&#8217;d imagined. The video quality isn&#8217;t quite what I&#8217;d hoped, but it gets the point across.</p>
-</div>
-  
-  
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/23/railscamp-new-england-2011/">RailsCamp New England 2011</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2011-08-23 20:28:00 -0400" pubdate  updated >Aug 23<span>rd</span>, 2011</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I got back from RailsCamp New England 2011 on Monday morning, and I had an awesome time. <a href="http://twitter.com/#!/bcardarella">Brian Cardarella</a> did a great job organizing the event, and the house was gorgeous.</p>
-
-<p>We had people from ThoughtBot, Intridea, RailsMachine, and more. A great time was had by all, and a great deal of alcohol was had by most. Due to the smaller, more intimate nature of the meeting, I feel like I learned a lot more than I normally do at confs.</p>
-
-<p>I&#8217;d like to see RailsCamp get bigger, but I think that would ruin the atmosphere. Maybe we just need them more often. I&#8217;d happily attend RailsCamp a few times a year.</p>
-</div>
-  
-  
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/23/understanding-server-push/">Understanding Server Push: Part 1</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2011-08-23 01:29:00 -0400" pubdate  updated >Aug 23<span>rd</span>, 2011</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve done a fair amount of work with different forms of server push over the years, and I find that a lot of developers are curious about the topic. As such, I&#8217;d like to create a series of posts on the different ways one can send data to the client without the client initiating a request.</p>
-
-<h2>The Anatomy of a Web Request</h2>
-
-<p>Before we get into how push works, let&#8217;s quickly go over the way HTTP normally works.</p>
-
-<p>The internet is built on TCP/IP (Transmission Control Protocol and Internet Protocol, respectively). TCP is a method of transferring data from one endpoint to another in a reliable fashion. Those endpoints can be different applications running on separate computers, though they can also be used to &#8220;loopback&#8221; to the same computer, and even the same application. Error detection and correction are built in at a low level. Unlike UDP, TCP ensures that each packet gets through in the intended order before allowing the next packet to be sent. That adds a bit of overhead, but alleviates a lot of headaches for most applications.</p>
-
-<p>Internet Protocol on the other hand, is how the computer routes the data to its intended recipient. We&#8217;re all familiar with IP addresses, which are indeed a part of the Internet Protocol.</p>
-
-<p>Many applications use raw TCP sockets to communicate. For instance, when you connect an application server to a database server, they may very well be communicating over a raw TCP socket.</p>
-
-<p>HTTP (Hypertext Transfer Protocol) is a request/response protocol that runs on top of TCP/IP. Simply put, a client makes a request to a server (consisting of a request line, headers, and possibly a body). The server handles the request in whatever way is deemed appropriate and sends a response consisting of headers and possibly a body.</p>
-
-<p>Here&#8217;s a slightly more in depth look at what happens when a user types a URL in their browser and hits enter:</p>
-
-<ul>
-<li>The client turns that URL into an IP address. If the address is cached then that is used, if not, it requests the information from a domain name server.</li>
-<li>The client initiates a TCP connection with the server.</li>
-<li>The client sends the request data, including a request line (i.e, GET /index.html HTTP/1.1), headers, and perhaps a body.</li>
-<li>The server processes the request.</li>
-<li>The server sends the response data, including headers, and possibly a body.</li>
-<li>The TCP connection is ended.</li>
-</ul>
-
-
-<p>This happens for every single piece of data that needs to be requested. You&#8217;ll make one request for the HTML page, another for the CSS, a few for however many Javascript files are included, and one for every single image, etc. You could easily make several dozen requests for a single page, each of which goes through the entire list of steps given above.</p>
-
-<p>When you think about it, it makes perfect sense that a server can&#8217;t normally push data to a client without a request; after responding to a client, the TCP connection is terminated and the server doesn&#8217;t even know if the client is still available.</p>
-
-<p>Despite that, there are many means for getting realtime or semi-realtime data to users. Many years ago polling was the only option, followed by Java, Flash, ActiveX and other browser plugins. Eventually Web Sockets and Event Source were created, which allow for realtime data push without plugins. That said, all of the aforementioned techniques are quite different. I&#8217;ll cover some of those options in later posts including example applications.</p>
-
-<p>So in summary:</p>
-
-<ul>
-<li>IP is how computers locate and route data to one another on the internet.</li>
-<li>TCP is how the individual packets of data are transferred in an orderly and fault resistant fashion.</li>
-<li>HTTP is how clients and servers speak to one another. It involves an unbreakable request response cycle.</li>
-<li>Polling, plugins, Web Sockets, and Event Source allow us to send realtime (or mostly realtime) data to clients, but each has a unique set of pros and cons.</li>
-</ul>
-
-</div>
-  
-  
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/22/another-blog/">Another Blog</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2011-08-22 23:24:00 -0400" pubdate  updated >Aug 22<span>nd</span>, 2011</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;m moving my blog over to Github with Octopress. Bear with me while the DNS changes propigate and I import my old content.</p>
-
-<p>I intend to create some posts about my new framework, tentatively named Rocket. It&#8217;s a realtime web application framework made with Ruby. I&#8217;m also going to create some posts about Web Sockets, polling, Event Source, Web Socket fallbacks, and probably Faye as well. I&#8217;d also like to talk about EventMachine a bit, as I&#8217;ve found that a lot of developers like to pick my brain on these topics.</p>
-
-<p>Sometimes I&#8217;ll likely post screencasts on these topics. Watch this space.</p>
-</div>
-  
-  
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/02/05/interesting-animation-with-raphael-dot-js/">Interesting Animation With Raphael.js</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2011-02-05 16:36:00 -0500" pubdate  updated >Feb 5<span>th</span>, 2011</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I recently created an interesting animation with Raphael.js. This looks better on the original page, but here’s a preview:</p>
-<iframe height='320px' src='https://s3.amazonaws.com/actsasbuffoon/raphael_test.html' width='960px'></iframe>
-</div>
-  
-  
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/08/28/typekit-in-situ/">Typekit in Situ</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2010-08-28 22:39:00 -0400" pubdate  updated >Aug 28<span>th</span>, 2010</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I’ve just released Typekit In Situ, which aims to help you see more realistic Typekit font previews. Check it out on <a href="" title="https://github.com/actsasbuffoon/Typekit-In-Situ">Github</a>.</p>
-</div>
-  
-  
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/08/26/fancy-css-submit-buttons/">Fancy CSS Submit Buttons</a></h1>
+      <h1 class="entry-title">Fancy CSS Submit Buttons</h1>
     
     
       <p class="meta">
@@ -373,7 +103,7 @@
   </header>
 
 
-  <div class="entry-content"><p>On the project I mentioned yesterday, I created some really nice CSS “buttons”. The buttons were actually just links with some nice styling, but they’d become a distinctive feature of the UI. Unfortunately, your only options for submit buttons are a regular button or an image, which wouldn’t mesh well with the rest of my UI. You can submit a form via Javascript, but I’m not sure if you can send a commit message that way, and I happened to need the message.</p>
+<div class="entry-content"><p>On the project I mentioned yesterday, I created some really nice CSS “buttons”. The buttons were actually just links with some nice styling, but they’d become a distinctive feature of the UI. Unfortunately, your only options for submit buttons are a regular button or an image, which wouldn’t mesh well with the rest of my UI. You can submit a form via Javascript, but I’m not sure if you can send a commit message that way, and I happened to need the message.</p>
 
 <p>The buttons look like this:</p>
 
@@ -451,95 +181,68 @@
 </div><div class='line'><span class="p">}</span>
 </div></code></pre></td></tr></table></div></figure>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Michael Tomer (actsasbuffoon)</span></span>
+
+      
+
+
+
+
+<time datetime="2010-08-26 15:18:00 -0400" pubdate  updated >Aug 26<span>th</span>, 2010</time>
+
+
+
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/css/'>css</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://actsasbuffoon.com/blog/2010/08/26/fancy-css-submit-buttons/" data-via="michael_tomer" data-counturl="http://actsasbuffoon.com/blog/2010/08/26/fancy-css-submit-buttons/" >Tweet</a>
   
   
-
-
-  </article>
-
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/08/25/finishing-a-new-site/">Finishing a New Site</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2010-08-25 19:01:00 -0400" pubdate  updated >Aug 25<span>th</span>, 2010</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I’m finishing up a new site. The design is probably my best graphical work yet. I’ll post a link once I’ve finished.</p>
+  <g:plusone size="medium"></g:plusone>
+  
 </div>
-  
-  
 
-
-  </article>
-
-
-  <article>
     
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/08/17/sharding-with-mongodb-1-dot-6-0/">Sharding With MongoDB 1.6.0</a></h1>
-    
-    
-      <p class="meta">
+  </footer>
+</article>
 
-
-
-
-<time datetime="2010-08-17 23:33:00 -0400" pubdate  updated >Aug 17<span>th</span>, 2010</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I created a screencast demonstrating how to set up sharding with MongoDB 1.6.0. Check it out, and be sure to leave a comment if you found it useful.</p>
-<iframe class='youtube-player' frameborder='0' height='405' src='http://www.youtube.com/embed/l3ib5eEEOqk?hl=en_US' type='text/html' width='660'></iframe>
-<p>
-  The script I used to fill the database with random data can be found here:
-  <a href='http://gist.github.com/532669'>http://gist.github.com/532669</a>
-</p>
-<script src='http://gist.github.com/532669.js'></script>
-</div>
-  
-  
-
-
-  </article>
-
-<nav role="pagination">
-  <div>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</nav>
-
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
 <script type="text/javascript">
-    var disqus_shortname = 'actsasbuffoon';
-    (function () {
-      var s = document.createElement('script'); s.async = true;
-      s.type = 'text/javascript';
-      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+  var disqus_shortname = 'actsasbuffoon';
+  var disqus_identifier = 'http://actsasbuffoon.com/blog/2010/08/26/fancy-css-submit-buttons/';
+  var disqus_url = 'http://actsasbuffoon.com/blog/2010/08/26/fancy-css-submit-buttons/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
 </script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
+
 <aside role=sidebar>
   
     <section>
@@ -590,6 +293,7 @@
 
   
 </aside>
+
 
     </div>
   </div>

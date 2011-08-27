@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Michael Tomer's Blog: Understanding Server Push: Part 1</title>
+  <meta name="author" content="Michael Tomer (actsasbuffoon)">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://actsasbuffoon.com/blog/2011/08/23/understanding-server-push/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Michael Tomer's Blog" type="application/atom+xml"/>
+  
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
+<script type='text/javascript' src='/javascripts/application.js'></script>
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Michael Tomer's Blog</a></h1>
+  
+    <h2>Born to be mild</h2>
+  
+  <img src='/images/avatar2.png' id='avatar' />
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:actsasbuffoon.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Understanding Server Push: Part 1</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-08-23 01:29:00 -0400" pubdate  updated >Aug 23<span>rd</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&#8217;ve done a fair amount of work with different forms of server push over the years, and I find that a lot of developers are curious about the topic. As such, I&#8217;d like to create a series of posts on the different ways one can send data to the client without the client initiating a request.</p>
+
+<h2>The Anatomy of a Web Request</h2>
+
+<p>Before we get into how push works, let&#8217;s quickly go over the way HTTP normally works.</p>
+
+<p>The internet is built on TCP/IP (Transmission Control Protocol and Internet Protocol, respectively). TCP is a method of transferring data from one endpoint to another in a reliable fashion. Those endpoints can be different applications running on separate computers, though they can also be used to &#8220;loopback&#8221; to the same computer, and even the same application. Error detection and correction are built in at a low level. Unlike UDP, TCP ensures that each packet gets through in the intended order before allowing the next packet to be sent. That adds a bit of overhead, but alleviates a lot of headaches for most applications.</p>
+
+<p>Internet Protocol on the other hand, is how the computer routes the data to its intended recipient. We&#8217;re all familiar with IP addresses, which are indeed a part of the Internet Protocol.</p>
+
+<p>Many applications use raw TCP sockets to communicate. For instance, when you connect an application server to a database server, they may very well be communicating over a raw TCP socket.</p>
+
+<p>HTTP (Hypertext Transfer Protocol) is a request/response protocol that runs on top of TCP/IP. Simply put, a client makes a request to a server (consisting of a request line, headers, and possibly a body). The server handles the request in whatever way is deemed appropriate and sends a response consisting of headers and possibly a body.</p>
+
+<p>Here&#8217;s a slightly more in depth look at what happens when a user types a URL in their browser and hits enter:</p>
+
+<ul>
+<li>The client turns that URL into an IP address. If the address is cached then that is used, if not, it requests the information from a domain name server.</li>
+<li>The client initiates a TCP connection with the server.</li>
+<li>The client sends the request data, including a request line (i.e, GET /index.html HTTP/1.1), headers, and perhaps a body.</li>
+<li>The server processes the request.</li>
+<li>The server sends the response data, including headers, and possibly a body.</li>
+<li>The TCP connection is ended.</li>
+</ul>
+
+
+<p>This happens for every single piece of data that needs to be requested. You&#8217;ll make one request for the HTML page, another for the CSS, a few for however many Javascript files are included, and one for every single image, etc. You could easily make several dozen requests for a single page, each of which goes through the entire list of steps given above.</p>
+
+<p>When you think about it, it makes perfect sense that a server can&#8217;t normally push data to a client without a request; after responding to a client, the TCP connection is terminated and the server doesn&#8217;t even know if the client is still available.</p>
+
+<p>Despite that, there are many means for getting realtime or semi-realtime data to users. Many years ago polling was the only option, followed by Java, Flash, ActiveX and other browser plugins. Eventually Web Sockets and Event Source were created, which allow for realtime data push without plugins. That said, all of the aforementioned techniques are quite different. I&#8217;ll cover some of those options in later posts including example applications.</p>
+
+<p>So in summary:</p>
+
+<ul>
+<li>IP is how computers locate and route data to one another on the internet.</li>
+<li>TCP is how the individual packets of data are transferred in an orderly and fault resistant fashion.</li>
+<li>HTTP is how clients and servers speak to one another. It involves an unbreakable request response cycle.</li>
+<li>Polling, plugins, Web Sockets, and Event Source allow us to send realtime (or mostly realtime) data to clients, but each has a unique set of pros and cons.</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Michael Tomer (actsasbuffoon)</span></span>
+
+      
+
+
+
+
+<time datetime="2011-08-23 01:29:00 -0400" pubdate  updated >Aug 23<span>rd</span>, 2011</time>
+
+
+
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/http/'>http</a>, <a class='category' href='/blog/categories/ip/'>ip</a>, <a class='category' href='/blog/categories/push/'>push</a>, <a class='category' href='/blog/categories/tcp/'>tcp</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://actsasbuffoon.com/blog/2011/08/23/understanding-server-push/" data-via="michael_tomer" data-counturl="http://actsasbuffoon.com/blog/2011/08/23/understanding-server-push/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'actsasbuffoon';
+  var disqus_identifier = 'http://actsasbuffoon.com/blog/2011/08/23/understanding-server-push/';
+  var disqus_url = 'http://actsasbuffoon.com/blog/2011/08/23/understanding-server-push/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/27/rocket-dot-io-docs-online/">Rocket.io Docs Online</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/25/rocket-dot-io-screencast/">Rocket.io Screencast</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/23/railscamp-new-england-2011/">RailsCamp New England 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/23/understanding-server-push/">Understanding Server Push: Part 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/22/another-blog/">Another Blog</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("michael_tomer", 8, true);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/michael_tomer" class="twitter-follow-button" data-width="208px" data-show-count="true">Follow @michael_tomer</a>
+  
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer><p>
+  Copyright &copy; 2011 - Michael Tomer (actsasbuffoon) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>
