@@ -4,7 +4,7 @@
   <title>Michael Tomer's Blog</title>
   <link href="http://actsasbuffoon.com/atom.xml" rel="self"/>
   <link href="http://actsasbuffoon.com/"/>
-  <updated>2011-08-27T00:52:16-04:00</updated>
+  <updated>2011-08-28T00:28:06-04:00</updated>
   <id>http://actsasbuffoon.com/</id>
   <author>
     <name>Michael Tomer (actsasbuffoon)</name>
@@ -13,6 +13,22 @@
     
   </author>
 
+  
+  <entry>
+    <title>Rocket Walkthrough Video</title>
+    <link href="http://actsasbuffoon.com/blog/2011/08/28/rocket-walkthrough-video/"/>
+    <updated>2011-08-28T00:22:00-04:00</updated>
+    <id>http://actsasbuffoon.com/blog/2011/08/28/rocket-walkthrough-video</id>
+    <content type="html">&lt;p&gt;I've just finished putting together another screencast for Rocket. This one is a walkthrough of building a simple project. Unlike the last tutorial, this one is all live coding.&lt;/p&gt;
+
+&lt;p&gt;It's based on the text documentation on this page: &lt;a href=&quot;http://actsasbuffoon.com/rocket-io/Transmission_API.html&quot;&gt;http://actsasbuffoon.com/rocket-io/Transmission_API.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In addition, I've created a channel on Vimeo for my Rocket screencasts. The channel is here: &lt;a href=&quot;http://vimeo.com/channels/236065&quot;&gt;http://vimeo.com/channels/236065&lt;/a&gt;&lt;/p&gt;
+
+&lt;iframe src=&quot;http://player.vimeo.com/video/28253138?title=0&amp;amp;byline=0&amp;amp;portrait=0&amp;amp;color=fbca54&quot; width=&quot;580&quot; height=&quot;435&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
+</content>
+  </entry>
   
   <entry>
     <title>Rocket.io Docs Online</title>
