@@ -4,7 +4,7 @@
   <title>Michael Tomer's Blog</title>
   <link href="http://actsasbuffoon.com/atom.xml" rel="self"/>
   <link href="http://actsasbuffoon.com/"/>
-  <updated>2011-08-28T17:22:39-04:00</updated>
+  <updated>2011-09-12T13:01:07-04:00</updated>
   <id>http://actsasbuffoon.com/</id>
   <author>
     <name>Michael Tomer (actsasbuffoon)</name>
@@ -13,6 +13,21 @@
     
   </author>
 
+  
+  <entry>
+    <title>Mnemosine: A Key/Value Store</title>
+    <link href="http://actsasbuffoon.com/blog/2011/09/12/mnemosine-a-key-slash-value-store/"/>
+    <updated>2011-09-12T12:47:00-04:00</updated>
+    <id>http://actsasbuffoon.com/blog/2011/09/12/mnemosine-a-key-slash-value-store</id>
+    <content type="html">&lt;p&gt;I've just released Mnemosine, which is a key/value store written in Ruby. I wrote it for a CodeBrawl challenge, the details of which can be found here: &lt;a href=&quot;http://codebrawl.com/contests/key-value-stores&quot;&gt;http://codebrawl.com/contests/key-value-stores&lt;/a&gt;. Mnemosine is essentially an incomplete knockoff of Redis. It's got some of the same data types, and many of the same functions.&lt;/p&gt;
+
+&lt;p&gt;Mnemosine could be a good app to study if you're curious about TDD, client/server apps, using raw TCP sockets, or event driven programming. The tests are extensive, and the code is quite modular.&lt;/p&gt;
+
+&lt;p&gt;The contest may be over, but the project was a lot of fun, and I'd like to add some more functionality. For instance, Mnemosine has basic map functionality, but doesn't support a reduce stage. I'd also like to implement sharding/replication sets, and maybe even indexed search.&lt;/p&gt;
+
+&lt;p&gt;Obviously a database written in Ruby is probably not going to be very performant. On the other hand, it's easy to implement high-level functionality with Ruby, which makes Mnemosine a great testbed for features that would be more time-consuming to write in C/C++.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>Rocket Walkthrough Video</title>

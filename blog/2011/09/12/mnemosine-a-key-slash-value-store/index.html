@@ -5,10 +5,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Michael Tomer's Blog: Category: gem</title>
+  <title>Michael Tomer's Blog: Mnemosine: A Key/Value Store</title>
   <meta name="author" content="Michael Tomer (actsasbuffoon)">
-  
-    <meta name="description" content="Category: gem"/>
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +16,7 @@
 
   
 
-  <link rel="canonical" href="http://actsasbuffoon.comblog/categories/gem/index.html"/>
+  <link rel="canonical" href="http://actsasbuffoon.com/blog/2011/09/12/mnemosine-a-key-slash-value-store/"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -86,36 +84,93 @@
   <div id="main">
     <div id="content">
       <div>
-<article>
+<article class="hentry">
   
   <header>
-    <h1 class="entry-title">Category: Gem</h1>
+    
+      <h1 class="entry-title">Mnemosine: A Key/Value Store</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-09-12 12:47:00 -0400" pubdate  updated >Sep 12<span>th</span>, 2011</time>
+
+
+</p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>I&#8217;ve just released Mnemosine, which is a key/value store written in Ruby. I wrote it for a CodeBrawl challenge, the details of which can be found here: <a href="http://codebrawl.com/contests/key-value-stores">http://codebrawl.com/contests/key-value-stores</a>. Mnemosine is essentially an incomplete knockoff of Redis. It&#8217;s got some of the same data types, and many of the same functions.</p>
 
-  
-  <h2>2011</h2>
+<p>Mnemosine could be a good app to study if you&#8217;re curious about TDD, client/server apps, using raw TCP sockets, or event driven programming. The tests are extensive, and the code is quite modular.</p>
 
-<article>
-  
-<h1><a href="/blog/2011/08/25/rocket-dot-io-screencast/">Rocket.io Screencast</a></h1>
-<time datetime="2011-08-25 17:49:00 -0400" pubdate><span class='month'>Aug</span> <span class='day'>25</span> <span class='year'>2011</span></time>
+<p>The contest may be over, but the project was a lot of fun, and I&#8217;d like to add some more functionality. For instance, Mnemosine has basic map functionality, but doesn&#8217;t support a reduce stage. I&#8217;d also like to implement sharding/replication sets, and maybe even indexed search.</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/framework/'>framework</a>, <a class='category' href='/blog/categories/gem/'>gem</a>, <a class='category' href='/blog/categories/rocketio/'>rocketio</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>, <a class='category' href='/blog/categories/work/'>work</a></span>
-</footer>
-
-
-</article>
-
+<p>Obviously a database written in Ruby is probably not going to be very performant. On the other hand, it&#8217;s easy to implement high-level functionality with Ruby, which makes Mnemosine a great testbed for features that would be more time-consuming to write in C/C++.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Michael Tomer (actsasbuffoon)</span></span>
+
+      
+
+
+
+
+<time datetime="2011-09-12 12:47:00 -0400" pubdate  updated >Sep 12<span>th</span>, 2011</time>
+
+
+
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/db/'>db</a>, <a class='category' href='/blog/categories/ruby-/'>ruby,</a>, <a class='category' href='/blog/categories/work-/'>work,</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://actsasbuffoon.com/blog/2011/09/12/mnemosine-a-key-slash-value-store/" data-via="michael_tomer" data-counturl="http://actsasbuffoon.com/blog/2011/09/12/mnemosine-a-key-slash-value-store/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'actsasbuffoon';
+  var disqus_identifier = 'http://actsasbuffoon.com/blog/2011/09/12/mnemosine-a-key-slash-value-store/';
+  var disqus_url = 'http://actsasbuffoon.com/blog/2011/09/12/mnemosine-a-key-slash-value-store/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 

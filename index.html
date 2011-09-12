@@ -91,6 +91,41 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/09/12/mnemosine-a-key-slash-value-store/">Mnemosine: A Key/Value Store</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-09-12 12:47:00 -0400" pubdate  updated >Sep 12<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve just released Mnemosine, which is a key/value store written in Ruby. I wrote it for a CodeBrawl challenge, the details of which can be found here: <a href="http://codebrawl.com/contests/key-value-stores">http://codebrawl.com/contests/key-value-stores</a>. Mnemosine is essentially an incomplete knockoff of Redis. It&#8217;s got some of the same data types, and many of the same functions.</p>
+
+<p>Mnemosine could be a good app to study if you&#8217;re curious about TDD, client/server apps, using raw TCP sockets, or event driven programming. The tests are extensive, and the code is quite modular.</p>
+
+<p>The contest may be over, but the project was a lot of fun, and I&#8217;d like to add some more functionality. For instance, Mnemosine has basic map functionality, but doesn&#8217;t support a reduce stage. I&#8217;d also like to implement sharding/replication sets, and maybe even indexed search.</p>
+
+<p>Obviously a database written in Ruby is probably not going to be very performant. On the other hand, it&#8217;s easy to implement high-level functionality with Ruby, which makes Mnemosine a great testbed for features that would be more time-consuming to write in C/C++.</p>
+</div>
+  
+  
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/08/28/rocket-walkthrough-video/">Rocket Walkthrough Video</a></h1>
     
     
@@ -494,35 +529,6 @@
 
   </article>
 
-
-  <article>
-    
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/08/25/finishing-a-new-site/">Finishing a New Site</a></h1>
-    
-    
-      <p class="meta">
-
-
-
-
-<time datetime="2010-08-25 19:01:00 -0400" pubdate  updated >Aug 25<span>th</span>, 2010</time>
-
-
-</p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I’m finishing up a new site. The design is probably my best graphical work yet. I’ll post a link once I’ve finished.</p>
-</div>
-  
-  
-
-
-  </article>
-
 <nav role="pagination">
   <div>
     
@@ -551,6 +557,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2011/09/12/mnemosine-a-key-slash-value-store/">Mnemosine: A Key/Value Store</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/08/28/rocket-walkthrough-video/">Rocket Walkthrough Video</a>
       </li>
     
@@ -564,10 +574,6 @@
     
       <li class="post">
         <a href="/blog/2011/08/23/railscamp-new-england-2011/">RailsCamp New England 2011</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/08/23/understanding-server-push/">Understanding Server Push: Part 1</a>
       </li>
     
   </ul>
